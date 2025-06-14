@@ -1,20 +1,20 @@
-import { FC, useLayoutEffect, useState } from "react";
-import { invoke } from "@tauri-apps/api/core";
-import { open } from "@tauri-apps/plugin-dialog";
-import { load } from "@tauri-apps/plugin-store";
-import { readDir, writeTextFile, readTextFile } from "@tauri-apps/plugin-fs";
-import { join } from "@tauri-apps/api/path";
+import { invoke } from '@tauri-apps/api/core';
+import { join } from '@tauri-apps/api/path';
+import { open } from '@tauri-apps/plugin-dialog';
+import { readDir, writeTextFile, readTextFile } from '@tauri-apps/plugin-fs';
+import { load } from '@tauri-apps/plugin-store';
+import { FC, useLayoutEffect, useState } from 'react';
 
-const store = await load("store.json");
+const store = await load('store.json');
 
-const HomePage: FC = ({}) => {
-  const [greetMsg, setGreetMsg] = useState("");
-  const [name, setName] = useState("");
+const HomePage: FC = () => {
+  const [greetMsg, setGreetMsg] = useState('');
+  const [name, setName] = useState('');
   const [selectedFolder, setSelectedFolder] = useState<string | null>(null);
   const [files, setFiles] = useState<{ name: string; content: string }[]>([]);
 
   useLayoutEffect(() => {
-    store.get<string>("selectedFolder").then((value) => {
+    store.get<string>('selectedFolder').then((value) => {
       if (!value) return;
       setSelectedFolder(value);
       loadFiles(value);
@@ -23,7 +23,7 @@ const HomePage: FC = ({}) => {
 
   async function greet() {
     // Learn more about Tauri commands at https://tauri.app/develop/calling-rust/
-    setGreetMsg(await invoke("greet", { name }));
+    setGreetMsg(await invoke('greet', { name }));
   }
 
   async function pickFolder() {
@@ -32,10 +32,10 @@ const HomePage: FC = ({}) => {
       multiple: false,
     });
 
-    if (typeof folder === "string") {
-      console.log("Выбранная папка:", folder);
+    if (typeof folder === 'string') {
+      console.log('Выбранная папка:', folder);
       setSelectedFolder(folder);
-      store.set("selectedFolder", folder);
+      store.set('selectedFolder', folder);
     }
   }
 
@@ -49,18 +49,18 @@ const HomePage: FC = ({}) => {
           const filePath = await join(folderPath, e.name);
           const content = await readTextFile(filePath);
           return { name: e.name, content };
-        })
+        }),
       );
       setFiles(filesWithContent);
     } catch (e) {
-      console.error("Ошибка чтения папки:", e);
+      console.error('Ошибка чтения папки:', e);
     }
   };
 
   const createFile = async () => {
     if (!selectedFolder) return;
     const now = new Date();
-    const iso = now.toISOString().split("T")[0]; // YYYY-MM-DD
+    const iso = now.toISOString().split('T')[0]; // YYYY-MM-DD
     const filePath = await join(selectedFolder, `${iso}.txt`);
     await writeTextFile(filePath, now.toISOString());
     await loadFiles(selectedFolder);
@@ -90,7 +90,7 @@ const HomePage: FC = ({}) => {
       <p>
         <b>Your folder:</b> {selectedFolder}
       </p>
-      <button onClick={createFile} disabled={!selectedFolder}>
+      <button onClick={createFile} disabled={!selectedFolder} type="button">
         Создать файл с датой
       </button>
       <h3>Файлы в папке:</h3>

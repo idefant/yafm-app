@@ -1,12 +1,18 @@
-import React from "react";
-import ReactDOM from "react-dom/client";
-import App from "./App";
-import { Router } from "wouter";
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import { Router } from 'wouter';
 
-ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
+import App from './App';
+
+import 'modern-normalize/modern-normalize.css';
+import '@fontsource-variable/open-sans';
+import 'react-datepicker/dist/react-datepicker.css';
+import './styles/index.scss';
+
+ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
     <Router>
       <App />
     </Router>
-  </React.StrictMode>
+  </React.StrictMode>,
 );

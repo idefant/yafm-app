@@ -1,12 +1,14 @@
-import { Redirect, Route, Switch, useLocation } from "wouter";
-import Header from "./Header";
-import { useLayoutEffect, useState } from "react";
-import { load } from "@tauri-apps/plugin-store";
-import { exists } from "@tauri-apps/plugin-fs";
-import { routes } from "#data/routes";
-import { checkIsBaseInited, initBase } from "#utils/baseFs";
+import { exists } from '@tauri-apps/plugin-fs';
+import { load } from '@tauri-apps/plugin-store';
+import { useLayoutEffect, useState } from 'react';
+import { Redirect, Route, Switch, useLocation } from 'wouter';
 
-const store = await load("store.json");
+import { routes } from '#data/routes';
+import { checkIsBaseInited, initBase } from '#utils/baseFs';
+
+import Header from './Header';
+
+const store = await load('store.json');
 
 const App = () => {
   const [selectedFolder, setSelectedFolder] = useState<string | null>(null);
@@ -14,7 +16,7 @@ const App = () => {
 
   useLayoutEffect(() => {
     (async () => {
-      const dirPath = await store.get<string>("selectedFolder");
+      const dirPath = await store.get<string>('selectedFolder');
       if (!dirPath) return;
       const isExistDirPath = await exists(dirPath);
       if (!isExistDirPath) {
@@ -37,7 +39,7 @@ const App = () => {
       await initBase(dirPath, { inited__DELETE_ME: true });
       navigate(routes.createBase);
     })();
-  }, []);
+  }, [navigate]);
 
   return (
     <main>

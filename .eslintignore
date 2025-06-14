@@ -1,0 +1,5 @@
+node_modules
+dist
+dev-dist
+src/types/exrates-api-schema.d.ts
+jest.config.cjs

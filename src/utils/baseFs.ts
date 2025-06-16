@@ -7,7 +7,7 @@ export const checkIsBaseInited = async (baseDirPath: string) => {
   return isConfigFileExist;
 };
 
-export const initBase = async (baseDirPath: string, config: object) => {
+export const initBase = async (baseDirPath: string) => {
   const configDirPath = await join(baseDirPath, '.yafm');
   const txsDirPath = await join(baseDirPath, 'transactions');
 

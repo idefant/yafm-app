@@ -53,12 +53,12 @@
     "react-number-format": "^5.4.4",
     "react-redux": "^9.2.0",
     "react-responsive": "^10.0.1",
+    "react-router-dom": "^7.6.2",
     "react-select": "^5.10.1",
     "react-textarea-autosize": "^8.5.9",
     "react-tooltip": "^5.29.1",
     "react-transition-group": "^4.4.5",
     "usehooks-ts": "^3.1.1",
-    "wouter": "^3.7.1",
     "zod": "^3.25.64"
   },
   "devDependencies": {

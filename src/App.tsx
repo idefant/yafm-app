@@ -1,71 +1,86 @@
 import { exists } from '@tauri-apps/plugin-fs';
-import { useLayoutEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { Redirect, Route, Switch, useLocation } from 'wouter';
+import { useLayoutEffect, useMemo } from 'react';
+import { Navigate, Route, Routes } from 'react-router-dom';
 
 import { routes } from '#data/routes';
-import { decrementCounter, incrementCounter } from '#store/reducers/appSlice';
-import { checkIsBaseInited, initBase } from '#utils/baseFs';
-import { useStore } from '#utils/store';
-
-import Header from './Header';
+import { useAppDispatch, useAppSelector } from '#hooks/reduxHooks';
+import { AccountGroups } from '#pages/AccountGroups';
+import { Accounts } from '#pages/Accounts';
+import { Categories } from '#pages/Categories';
+import ChooseFolderPage from '#pages/ChooseFolderPage';
+import { Commits } from '#pages/Commits';
+import CreateBasePage from '#pages/CreateBasePage';
+import { Currencies } from '#pages/Currencies';
+import { Dashboard } from '#pages/Dashboard';
+import DecryptBasePage from '#pages/DecryptBasePage';
+import { Setting } from '#pages/Setting';
+import { Templates } from '#pages/Templates';
+import { Transactions } from '#pages/Transactions';
+import { setFolderPath } from '#store/reducers/appSlice';
+import { BaseTemplate } from '#templates/BaseTemplate';
+import { CabinetTemplate } from '#templates/CabinetTemplate';
+import { checkIsBaseInited } from '#utils/baseFs';
+import { useTauriStore } from '#utils/tauriStore';
 
 const App = () => {
-  const [selectedFolder, setSelectedFolder] = useState<string | null>(null);
-  const [, navigate] = useLocation();
-  const dispatch = useDispatch();
-  const { counter } = useSelector((state) => (state as any).app);
-  const store = useStore();
+  const dispatch = useAppDispatch();
+  const { isBaseUnlocked, folderPath } = useAppSelector((state) => state.app);
+
+  const tauriStore = useTauriStore();
 
   useLayoutEffect(() => {
     (async () => {
-      const dirPath = await store.get<string>('selectedFolder');
+      const dirPath = await tauriStore.get<string>('selectedFolder');
       if (!dirPath) return;
       const isExistDirPath = await exists(dirPath);
-      if (!isExistDirPath) {
-        setSelectedFolder(null);
-        return;
-      }
-
-      // XXX: dirPath должен записываться в redux state
-      //      setSelectedFolder Удалить
-      setSelectedFolder(dirPath);
+      if (!isExistDirPath) return;
 
       const isInited = await checkIsBaseInited(dirPath);
       if (isInited) {
-        navigate(routes.decryptBase);
+        dispatch(setFolderPath(dirPath));
         return;
       }
-
-      // XXX: Инициализация должна производиться прямо перед первым tx
-      //      (на странице создания базы, после введения пароля)
-      await initBase(dirPath, { inited__DELETE_ME: true });
-      navigate(routes.createBase);
     })();
-  }, [navigate, store]);
+  }, [dispatch, tauriStore]);
 
-  return (
-    <main>
-      <Header />
+  const routesList = useMemo(() => {
+    if (!folderPath) {
+      return (
+        <Route element={<CabinetTemplate />}>
+          <Route path={routes.chooseBaseFolder} element={<ChooseFolderPage />} />
+          <Route path={routes.notFound} element={<Navigate to={routes.chooseBaseFolder} />} />
+        </Route>
+      );
+    }
 
-      <div>Count: {counter}</div>
-      <button type="button" onClick={() => dispatch(decrementCounter())}>
-        -
-      </button>
-      <button type="button" onClick={() => dispatch(incrementCounter())}>
-        +
-      </button>
+    if (!isBaseUnlocked) {
+      return (
+        <Route element={<CabinetTemplate />}>
+          <Route path={routes.createBase} element={<CreateBasePage />} />
+          <Route path={routes.uploadBase} element="Upload Base" />
+          <Route path={routes.decryptBase} element={<DecryptBasePage />} />
+          <Route path={routes.notFound} element={<Navigate to={routes.decryptBase} />} />
+        </Route>
+      );
+    }
 
-      <Switch>
-        <Route path={routes.chooseBaseDir}>Choose dir</Route>
-        <Route path={routes.createBase}>Create base</Route>
+    return (
+      <Route element={<BaseTemplate />}>
+        <Route path={routes.dashboard} element={<Dashboard />} />
+        <Route path={routes.transactions} element={<Transactions />} />
+        <Route path={routes.accounts} element={<Accounts />} />
+        <Route path={routes.accountGroups} element={<AccountGroups />} />
+        <Route path={routes.settings} element={<Setting />} />
+        <Route path={routes.templates} element={<Templates />} />
+        <Route path={routes.categories} element={<Categories />} />
+        <Route path={routes.currencies} element={<Currencies />} />
+        <Route path={routes.commits} element={<Commits />} />
+        <Route path={routes.notFound} element={<Navigate to={routes.dashboard} />} />
+      </Route>
+    );
+  }, [folderPath, isBaseUnlocked]);
 
-        {/* XXX: Нужно будет сделать возможность выбрать другую базу перейдя на страницу chooseBaseDir */}
-        <Route path={routes.decryptBase}>Decrypt base</Route>
-        <Redirect to={routes.chooseBaseDir} />
-      </Switch>
-    </main>
-  );
+  return <Routes>{routesList}</Routes>;
 };
 
 export default App;

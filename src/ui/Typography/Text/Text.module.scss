@@ -1,0 +1,61 @@
+.Text {
+  line-height: var(--text-line-height);
+}
+
+.primary {
+  color: var(--primary-color);
+}
+
+.secondary {
+  color: var(--secondary-color);
+}
+
+.success {
+  color: var(--success-color);
+}
+
+.danger {
+  color: var(--danger-color);
+}
+
+.align {
+  &Left {
+    text-align: left;
+  }
+
+  &Center {
+    text-align: center;
+  }
+
+  &Right {
+    text-align: right;
+  }
+}
+
+.regular {
+  font-weight: 400;
+}
+
+.semiBold {
+  font-weight: 500;
+}
+
+.bold {
+  font-weight: 600;
+}
+
+.sm {
+  font-size: var(--text-size-sm);
+}
+
+.md {
+  font-size: var(--text-size-md);
+}
+
+.lg {
+  font-size: var(--text-size-lg);
+}
+
+.xl {
+  font-size: var(--text-size-xl);
+}

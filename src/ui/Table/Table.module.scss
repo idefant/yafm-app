@@ -1,0 +1,112 @@
+.Table {
+  border-collapse: collapse;
+
+  &.sm {
+    --cell-x-padding-inner: 4px;
+    --cell-x-padding-outer: 4px;
+    --head-cell-min-height: 24px;
+    --head-cell-y-padding: 4px;
+    --body-cell-min-height: 36px;
+    --body-cell-y-padding: 6px;
+    --group-cell-min-height: 24px;
+    --group-cell-y-padding: 4px;
+  }
+
+  &.md {
+    --cell-x-padding-inner: 8px;
+    --cell-x-padding-outer: 4px;
+    --head-cell-min-height: 32px;
+    --head-cell-y-padding: 4px;
+    --body-cell-min-height: 44px;
+    --body-cell-y-padding: 8px;
+    --group-cell-min-height: 34px;
+    --group-cell-y-padding: 6px;
+  }
+}
+
+.fullWidth {
+  width: 100%;
+}
+
+.cell {
+  padding: 0;
+
+  &:first-of-type {
+    padding-left: var(--cell-x-padding-outer);
+  }
+
+  &:last-of-type {
+    padding-right: var(--cell-x-padding-outer);
+  }
+
+  &Inner {
+    &.sm {
+      font-size: var(--text-size-sm);
+    }
+
+    &.md {
+      font-size: var(--text-size-md);
+    }
+
+    &.lg {
+      font-size: var(--text-size-lg);
+    }
+  }
+}
+
+.head {
+  &Row {
+    border-bottom: 2px solid var(--table-head-row-border-color);
+  }
+
+  &Cell {
+    &Inner {
+      color: var(--table-head-row-color);
+      font-weight: 600;
+      padding: var(--head-cell-y-padding) var(--cell-x-padding-inner);
+      min-height: var(--head-cell-min-height);
+    }
+  }
+}
+
+.body {
+  &Row {
+    border-bottom: 1px solid var(--table-body-row-border-color);
+
+    &:hover {
+      background-color: var(--table-body-row-hovered-bg);
+    }
+
+    &Clickable {
+      cursor: pointer;
+    }
+  }
+
+  &Cell {
+    &Inner {
+      min-height: var(--body-cell-min-height);
+      padding-left: var(--cell-x-padding-inner);
+      padding-right: var(--cell-x-padding-inner);
+
+      &WithYPadding {
+        padding-top: var(--body-cell-y-padding);
+        padding-bottom: var(--body-cell-y-padding);
+      }
+    }
+  }
+}
+
+.group {
+  &Row {
+    border-bottom: 1px solid var(--table-group-row-border-color);
+    background-color: var(--table-group-row-bg);
+  }
+
+  &Cell {
+    &Inner {
+      font-weight: 500;
+      min-height: var(--group-cell-min-height);
+      padding: var(--group-cell-y-padding) var(--cell-x-padding-inner);
+    }
+  }
+}

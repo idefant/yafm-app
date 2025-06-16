@@ -1,0 +1,13 @@
+.Header {
+  background-color: var(--bg-paper);
+  height: var(--header-height);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 24px;
+  border-bottom: 1px solid var(--border-color);
+  position: sticky;
+  top: 0;
+  box-shadow: var(--paper-shadow);
+  z-index: var(--z-header);
+}

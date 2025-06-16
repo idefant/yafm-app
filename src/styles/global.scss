@@ -1,0 +1,68 @@
+@use "./media" as *;
+
+:root {
+  // text
+  --text-size-sm: 13px;
+  --text-size-md: 14px;
+  --text-size-lg: 16px;
+  --text-size-xl: 20px;
+  --text-line-height: 1.5;
+
+  // button
+  --button-height-sm: 30px;
+  --button-height-md: 36px;
+  --button-height-lg: 42px;
+
+  // input
+  --input-font-size-sm: 14px;
+  --input-font-size-md: 14px;
+  --input-font-size-lg: 16px;
+  --input-y-padding-sm: 3.5px;
+  --input-y-padding-md: 6.5px;
+  --input-y-padding-lg: 8px;
+  --input-x-padding: 12px;
+  --input-border-radius: 8px;
+  --input-prefix-suffix-gap: 8px;
+  --input-menu-border-radius: 8px;
+  --input-margin-xs: 8px;
+  --input-margin-sm: 16px;
+  --input-margin-md: 20px;
+
+  // modal
+  --modal-xs-margin: 8px;
+  --modal-sm-margin: 16px;
+  --modal-md-margin: 24px;
+  --modal-lg-margin: 24px;
+  --modal-xl-margin: 32px;
+  --modal-xxl-margin: 32px;
+  --modal-margin: var(--modal-xs-margin);
+
+  @include sm {
+    --modal-margin: var(--modal-sm-margin);
+  }
+
+  @include md {
+    --modal-margin: var(--modal-md-margin);
+  }
+
+  @include lg {
+    --modal-margin: var(--modal-lg-margin);
+  }
+
+  @include xl {
+    --modal-margin: var(--modal-xl-margin);
+  }
+
+  @include xxl {
+    --modal-margin: var(--modal-xxl-margin);
+  }
+
+  // header
+  --header-height: 64px;
+
+  // z-index
+  --z-header: 1;
+  --z-sidebar: 1;
+  --z-popup: 3;
+  --z-context-menu: 2;
+}

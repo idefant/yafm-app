@@ -1,27 +1,37 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 type AppState = {
-  counter: number;
+  folderPath?: string;
+  archiveMode: boolean;
+  isBaseUnlocked: boolean;
 };
 
 const initialState: AppState = {
-  counter: 0,
+  archiveMode: false,
+  isBaseUnlocked: false,
 };
 
 export const appSlice = createSlice({
   name: 'app',
   initialState,
   reducers: {
-    incrementCounter(state) {
-      state.counter += 1;
+    setFolderPath(state, { payload: path }: PayloadAction<string>) {
+      state.folderPath = path;
     },
-    decrementCounter(state) {
-      state.counter -= 1;
+    clearFolderPath(state) {
+      state.folderPath = undefined;
+    },
+    setArchiveMode(state, { payload: archiveMode }: PayloadAction<boolean>) {
+      state.archiveMode = archiveMode;
+    },
+    unlockBase(state) {
+      state.isBaseUnlocked = true;
     },
     lockBase: () => initialState,
   },
 });
 
-export const { incrementCounter, decrementCounter } = appSlice.actions;
+export const { setFolderPath, clearFolderPath, setArchiveMode, unlockBase, lockBase } =
+  appSlice.actions;
 
 export default appSlice.reducer;

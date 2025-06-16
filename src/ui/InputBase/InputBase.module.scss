@@ -1,0 +1,114 @@
+.input {
+  width: 100%;
+  background-color: unset;
+  border: none;
+  color: var(--input-color);
+  outline: none;
+  overflow: hidden;
+  padding-left: var(--input-x-padding);
+  padding-right: var(--input-x-padding);
+  line-height: var(--text-line-height);
+
+  &::placeholder {
+    color: var(--input-placeholder-color);
+    opacity: var(--input-placeholder-opacity);
+  }
+
+  &:disabled {
+    color: var(--input-disabled-color);
+
+    &::placeholder {
+      opacity: var(--input-disabled-placeholder-opacity);
+    }
+  }
+}
+
+.prefix,
+.suffix {
+  color: var(--input-prefix-suffix-color);
+  display: flex;
+}
+
+.prefix {
+  padding-left: var(--input-x-padding);
+}
+
+.suffix {
+  padding-right: var(--input-x-padding);
+}
+
+.sm {
+  .input {
+    padding-top: var(--input-y-padding-sm);
+    padding-bottom: var(--input-y-padding-sm);
+  }
+
+  .input,
+  .prefix,
+  .suffix {
+    font-size: var(--input-font-size-sm);
+  }
+}
+
+.md {
+  .input {
+    padding-top: var(--input-y-padding-md);
+    padding-bottom: var(--input-y-padding-md);
+  }
+
+  .input,
+  .prefix,
+  .suffix {
+    font-size: var(--input-font-size-md);
+  }
+}
+
+.lg {
+  .input {
+    padding-top: var(--input-y-padding-lg);
+    padding-bottom: var(--input-y-padding-lg);
+  }
+
+  .input,
+  .prefix,
+  .suffix {
+    font-size: var(--input-font-size-lg);
+  }
+}
+
+.InputBase {
+  display: flex;
+  align-items: center;
+  gap: var(--input-prefix-suffix-gap);
+  background-color: var(--input-bg);
+  border: 1px solid var(--input-border-color);
+  border-radius: var(--input-border-radius);
+  cursor: text;
+  transition: var(--input-transition);
+
+  &:has(.input:focus) {
+    border-color: var(--input-focused-border-color);
+    box-shadow: var(--input-focused-box-shadow);
+  }
+
+  &:has(.input:disabled) {
+    cursor: default;
+  }
+
+  &:has(.prefix) .input {
+    padding-left: 0;
+  }
+
+  &:has(.suffix) .input {
+    padding-right: 0;
+  }
+}
+
+.hasError {
+  border-color: var(--input-error-border-color);
+
+  &:has(.input:focus) {
+    border-color: var(--input-focused-error-border-color);
+    box-shadow: var(--input-focused-error-box-shadow);
+  }
+}

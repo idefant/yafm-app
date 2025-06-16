@@ -149,6 +149,13 @@
       "rules": {
         "no-undef": "off"
       }
+    },
+    {
+      "files": ["*.example.tsx", "*.stories.tsx"],
+      "rules": {
+        "no-console": "off",
+        "no-alert": "off"
+      }
     }
   ],
   "globals": {

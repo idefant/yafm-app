@@ -1,0 +1,72 @@
+.input {
+  width: 100%;
+  background-color: unset;
+  border: none;
+  color: var(--input-color);
+  outline: none;
+  overflow: hidden;
+  padding-left: var(--input-x-padding);
+  padding-right: var(--input-x-padding);
+  line-height: var(--text-line-height);
+  resize: none;
+
+  &::placeholder {
+    color: var(--input-placeholder-color);
+    opacity: var(--input-placeholder-opacity);
+  }
+
+  &:disabled {
+    color: var(--input-disabled-color);
+
+    &::placeholder {
+      opacity: var(--input-disabled-placeholder-opacity);
+    }
+  }
+}
+
+.sm .input {
+  padding-top: var(--input-y-padding-sm);
+  padding-bottom: var(--input-y-padding-sm);
+  font-size: var(--input-font-size-sm);
+}
+
+.md .input {
+  padding-top: var(--input-y-padding-md);
+  padding-bottom: var(--input-y-padding-md);
+  font-size: var(--input-font-size-md);
+}
+
+.lg .input {
+  padding-top: var(--input-y-padding-lg);
+  padding-bottom: var(--input-y-padding-lg);
+  font-size: var(--input-font-size-lg);
+}
+
+.TextAreaBase {
+  display: flex;
+  align-items: center;
+  gap: var(--input-prefix-suffix-gap);
+  background-color: var(--input-bg);
+  border: 1px solid var(--input-border-color);
+  border-radius: var(--input-border-radius);
+  cursor: text;
+  transition: var(--input-transition);
+
+  &:has(.input:focus) {
+    border-color: var(--input-focused-border-color);
+    box-shadow: var(--input-focused-box-shadow);
+  }
+
+  &:has(.input:disabled) {
+    cursor: default;
+  }
+}
+
+.hasError {
+  border-color: var(--input-error-border-color);
+
+  &:has(.input:focus) {
+    border-color: var(--input-focused-error-border-color);
+    box-shadow: var(--input-focused-error-box-shadow);
+  }
+}

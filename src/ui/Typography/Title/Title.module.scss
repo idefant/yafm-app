@@ -1,0 +1,54 @@
+.Title {
+  color: var(--primary-color);
+  font-weight: 500;
+  line-height: var(--text-line-height);
+  margin: 0;
+}
+
+.level1 {
+  font-size: 40px;
+
+  &.gutterBottom {
+    margin: 0 0 20px;
+  }
+}
+
+.level2 {
+  font-size: 32px;
+
+  &.gutterBottom {
+    margin: 0 0 16px;
+  }
+}
+
+.level3 {
+  font-size: 28px;
+
+  &.gutterBottom {
+    margin: 0 0 12px;
+  }
+}
+
+.level4 {
+  font-size: 24px;
+
+  &.gutterBottom {
+    margin: 0 0 10px;
+  }
+}
+
+.level5 {
+  font-size: 20px;
+
+  &.gutterBottom {
+    margin: 0 0 8px;
+  }
+}
+
+.level6 {
+  font-size: 16px;
+
+  &.gutterBottom {
+    margin: 0 0 6px;
+  }
+}

@@ -1,0 +1,46 @@
+import classNames from 'classnames';
+import { FC, FunctionComponent } from 'react';
+import { NavLink } from 'react-router-dom';
+
+import { routes } from '#data/routes';
+import BankCardIcon from '#svg/bank-card.svg?react';
+import CopyIcon from '#svg/copy.svg?react';
+import DollarIcon from '#svg/dollar.svg?react';
+import Logo from '#svg/logo.svg?react';
+import PieChartIcon from '#svg/pie-chart.svg?react';
+import SettingsIcon from '#svg/settings.svg?react';
+import SwapIcon from '#svg/swap.svg?react';
+import TagIcon from '#svg/tag.svg?react';
+
+import cls from './Sidebar.module.scss';
+
+const navItems: { label: string; link: string; icon: FunctionComponent }[] = [
+  { label: 'Dashboard', link: routes.dashboard, icon: PieChartIcon },
+  { label: 'Accounts', link: routes.accounts, icon: BankCardIcon },
+  { label: 'Transactions', link: routes.transactions, icon: SwapIcon },
+  { label: 'Templates', link: routes.templates, icon: CopyIcon },
+  { label: 'Categories', link: routes.categories, icon: TagIcon },
+  { label: 'Currencies', link: routes.currencies, icon: DollarIcon },
+  { label: 'Settings', link: routes.settings, icon: SettingsIcon },
+  { label: 'Commits', link: routes.commits, icon: SettingsIcon },
+];
+
+export const Sidebar: FC = () => (
+  <aside className={cls.Sidebar}>
+    <div className={cls.logoContainer}>
+      <Logo />
+    </div>
+    <nav className={cls.navigation}>
+      {navItems.map((navItem) => (
+        <NavLink
+          to={navItem.link}
+          className={({ isActive }) => classNames(cls.navItem, { [cls.navItemActive]: isActive })}
+          key={navItem.link}
+        >
+          <navItem.icon />
+          {navItem.label}
+        </NavLink>
+      ))}
+    </nav>
+  </aside>
+);

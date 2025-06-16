@@ -1,12 +1,16 @@
 export const routes = {
-  chooseBaseDir: '/choose-base-dir',
+  chooseBaseFolder: '/choose-base-folder',
   createBase: '/create-base',
   decryptBase: '/decrypt-base',
+  uploadBase: '/upload-base',
   dashboard: '/base/dashboard',
   accounts: '/base/accounts',
   accountGroups: '/base/account-groups',
   transactions: '/base/transactions',
   templates: '/base/templates',
   categories: '/base/categories',
+  currencies: '/base/currencies',
   settings: '/base/settings',
+  commits: '/base/commits',
+  notFound: '*',
 } as const;

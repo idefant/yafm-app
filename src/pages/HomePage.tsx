@@ -2,16 +2,16 @@ import { invoke } from '@tauri-apps/api/core';
 import { join } from '@tauri-apps/api/path';
 import { open } from '@tauri-apps/plugin-dialog';
 import { readDir, writeTextFile, readTextFile } from '@tauri-apps/plugin-fs';
-import { load } from '@tauri-apps/plugin-store';
 import { FC, useLayoutEffect, useState } from 'react';
 
-const store = await load('store.json');
+import { useStore } from '#utils/store';
 
 const HomePage: FC = () => {
   const [greetMsg, setGreetMsg] = useState('');
   const [name, setName] = useState('');
   const [selectedFolder, setSelectedFolder] = useState<string | null>(null);
   const [files, setFiles] = useState<{ name: string; content: string }[]>([]);
+  const store = useStore();
 
   useLayoutEffect(() => {
     store.get<string>('selectedFolder').then((value) => {
@@ -19,7 +19,7 @@ const HomePage: FC = () => {
       setSelectedFolder(value);
       loadFiles(value);
     });
-  }, []);
+  }, [store]);
 
   async function greet() {
     // Learn more about Tauri commands at https://tauri.app/develop/calling-rust/

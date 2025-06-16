@@ -4,6 +4,7 @@ import { Provider } from 'react-redux';
 import { Router } from 'wouter';
 
 import { store } from '#store';
+import { initStore } from '#utils/store';
 
 import App from './App';
 
@@ -12,12 +13,16 @@ import '@fontsource-variable/open-sans';
 import 'react-datepicker/dist/react-datepicker.css';
 import './styles/index.scss';
 
-ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
-  <React.StrictMode>
-    <Provider store={store}>
-      <Router>
-        <App />
-      </Router>
-    </Provider>
-  </React.StrictMode>,
-);
+(async () => {
+  await initStore();
+
+  ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
+    <React.StrictMode>
+      <Provider store={store}>
+        <Router>
+          <App />
+        </Router>
+      </Provider>
+    </React.StrictMode>,
+  );
+})();

@@ -1,9 +1,11 @@
 import { exists } from '@tauri-apps/plugin-fs';
 import { load } from '@tauri-apps/plugin-store';
 import { useLayoutEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { Redirect, Route, Switch, useLocation } from 'wouter';
 
 import { routes } from '#data/routes';
+import { decrementCounter, incrementCounter } from '#store/reducers/appSlice';
 import { checkIsBaseInited, initBase } from '#utils/baseFs';
 
 import Header from './Header';
@@ -13,6 +15,8 @@ const store = await load('store.json');
 const App = () => {
   const [selectedFolder, setSelectedFolder] = useState<string | null>(null);
   const [, navigate] = useLocation();
+  const dispatch = useDispatch();
+  const { counter } = useSelector((state) => (state as any).app);
 
   useLayoutEffect(() => {
     (async () => {
@@ -44,6 +48,14 @@ const App = () => {
   return (
     <main>
       <Header />
+
+      <div>Count: {counter}</div>
+      <button type="button" onClick={() => dispatch(decrementCounter())}>
+        -
+      </button>
+      <button type="button" onClick={() => dispatch(incrementCounter())}>
+        +
+      </button>
 
       <Switch>
         <Route path={routes.chooseBaseDir}>Choose dir</Route>

@@ -3,3 +3,7 @@ dist
 dev-dist
 src/types/exrates-api-schema.d.ts
 jest.config.cjs
+
+# tauri
+/src-tauri/target/
+/src-tauri/gen/schemas

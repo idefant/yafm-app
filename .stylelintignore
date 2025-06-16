@@ -9,3 +9,7 @@
 /dev-dist
 /.vscode
 /nginx
+
+# tauri
+/src-tauri/target/
+/src-tauri/gen/schemas

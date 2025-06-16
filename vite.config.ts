@@ -5,10 +5,12 @@ import { defineConfig } from 'vite';
 import checker from 'vite-plugin-checker';
 import svgr from 'vite-plugin-svgr';
 
+import { getDevtoolsPlugin } from './vite/plugin/devtoolsPlugin';
+
 const host = process.env.TAURI_DEV_HOST;
 
 // https://vitejs.dev/config/
-export default defineConfig(async () => ({
+export default defineConfig(async ({ mode }) => ({
   plugins: [
     react(),
     checker({
@@ -28,6 +30,7 @@ export default defineConfig(async () => ({
       },
     }),
     svgr({ include: '**/*.svg?react', exclude: '' }),
+    getDevtoolsPlugin(mode),
   ],
 
   // Vite options tailored for Tauri development and only applied in `tauri dev` or `tauri build`

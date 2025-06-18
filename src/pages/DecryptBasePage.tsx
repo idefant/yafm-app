@@ -61,6 +61,7 @@ const DecryptBasePage: FC = () => {
 
   const loadFiles = useCallback(async (folderPath: string) => {
     try {
+      console.log('=== folderPath', folderPath);
       const entries = await readDir(folderPath);
       const onlyFiles = entries.filter((e) => e.name && e.isFile);
       const filesWithContent = await Promise.all(
